@@ -1,0 +1,53 @@
+{% set name = "am-radiation-scripts" %}
+{% set version = "0.0.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/menzel-gfdl/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: 
+
+build:
+  skip: true  # [win]
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  build:
+    - python
+  host:
+    - python
+    - pip
+    - setuptools
+  run:
+    - python
+    - cartopy
+    - matplotlib
+    - netCDF4
+    - numpy
+
+test:
+  imports:
+    - am_radiation_scripts
+  requires:
+    - pytest
+  source_files:
+  commands:
+    - pytest tests
+
+about:
+  home: https://github.com/menzel-gfdl/am-radiation-scripts
+  summary: 'A python package for making radiation outplot maps and plots'
+  description: |
+    A python package for making radiation outplot maps and plots
+  license: LGPL-2.1-only
+  license_family: LGPL
+  license_file: LICENSE.md
+  doc_url: 
+  dev_url: https://github.com/menzel-gfdl/am-radiation-scripts
+
+extra:
+  recipe-maintainers:
+    - menzel-gfdl
